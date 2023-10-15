@@ -1,0 +1,41 @@
+
+//==================================================
+// PROGRAMMER: TAI TZU YU
+// DATE: 2023/10/12
+// FILE NAME: HW03AB12611017
+// DESCRIPTION:  Calculation of an arithmetic series
+//==================================================
+#include <iostream>
+#include <cmath>
+using namespace std;
+double answer1; // Store the smallest value of n that makes the error less than 1.0×10^-3
+int FSeries(int x);
+int times;
+int main()
+{
+    double value = 0;
+    double estimation = 2 - value;
+    for (times = 1; times < 1000; times++)
+    {
+        value += pow(0.5, times) * FSeries(times);
+        estimation = 2 - value;
+        if (estimation < 0.001)
+        {
+            break;
+        }
+    }
+    answer1 = times;
+    return 0;
+}
+
+int FSeries(int x)
+{
+    if ((x == 1) || (x == 0))
+    {
+        return (x);
+    }
+    else
+    {
+        return (FSeries(x - 1) + FSeries(x - 2));
+    }
+}
