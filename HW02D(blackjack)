@@ -1,0 +1,102 @@
+//==================================================
+// PROGRAMMER: TAI TZU YU
+// DATE: 2023/9/20
+// FILE NAME: HW02DB12611017
+// DESCRIPTION: Game of blackjack (hope i can find more effective method!)
+//==================================================
+
+#include <iostream>
+
+int answer1;    // Store the total value of the hand
+int answer2;    // Store the sum of the three input integers
+int situation;  // to judge the numbers of "Ace" card, "1" means there are one Ace on hand and so on.
+int i, j, temp; // variables for BubbleSort and array
+int card[3];
+void BubbleSort(int card[3]);
+
+int main()
+{
+    for (i = 0; i < 3; i++)
+    {
+        std::cin >> card[i];
+        answer2 = answer2 + card[i];
+    }
+    BubbleSort(card);
+    if (card[0] != 1)
+        situation = 0; // there are no "Ace" on the hand
+    if (card[0] == 1 && card[1] != 1 && card[2] != 1)
+        situation = 1; // there are one "Ace" on the hand
+    if (card[0] == 1 && card[1] == 1 && card[2] != 1)
+        situation = 2;
+    if (card[0] == 1 && card[1] == 1 && card[2] == 1)
+        situation = 3;
+    if (card[0] > 10 || card[1] > 10 || card[2] > 10) // change the face card into numbers
+    {
+        if (card[0] > 10)
+            card[0] = 10;
+        if (card[1] > 10)
+            card[1] = 10;
+        if (card[2] > 10)
+            card[2] = 10;
+    }
+    answer1 = card[0] + card[1] + card[2];
+    std ::cout << card[0] << card[1] << card[2] << situation;
+    switch (situation)
+    {
+    case 0:
+        if (answer1 > 21)
+            printf("The total value of the hand is %d (bust).", answer1);
+        else
+            printf("The total value of the hand is %d.", answer1);
+        break;
+    case 1:
+        answer1 = 11 + card[1] + card[2];
+        if (answer1 > 21)
+        {
+            answer1 = answer1 - 10;
+            if (answer1 > 21)
+                printf("The total value of the hand is %d (bust).", answer1);
+            else
+                printf("The total value of the hand is %d.", answer1);
+        }
+        else
+            printf("The total value of the hand is %d.", answer1);
+        break;
+    case 2:
+        answer1 = 22 + card[2];
+        if (answer1 > 21)
+        {
+            answer1 = answer1 - 10;
+            if (answer1 > 21)
+            {
+                answer1 = 12;
+                printf("The total value of the hand is %d.", answer1);
+            }
+            else
+                printf("The total value of the hand is %d.", answer1);
+        }
+        else
+            printf("The total value of the hand is %d.", answer1);
+        break;
+    case 3:
+        answer1 = 13;
+        printf("The total value of the hand is %d.", answer1);
+        break;
+        return 0;
+    }
+}
+void BubbleSort(int card[3])
+{
+    for (i = 0; i < 2; i++)
+    {
+        for (j = 0; j < 2; j++)
+        {
+            if (card[j] > card[j + 1])
+            {
+                temp = card[j];
+                card[j] = card[j + 1];
+                card[j + 1] = temp;
+            }
+        }
+    }
+}
