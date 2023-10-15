@@ -1,0 +1,104 @@
+//==================================================
+// PROGRAMMER: TAI TZU YU
+// DATE: 2023/10/12
+// FILE NAME: HW03DB12611017
+// DESCRIPTION: Rock-Paper-Scissors game
+//==================================================
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+int answer1; // Store the total number of rounds in this variable
+int main()
+{
+    srand(time(NULL)); // let the random number be different each time
+    char player_selection;
+    int computer_wins = 0, player_wins = 0;
+    while (1)
+    {
+        int computer_selection = rand() % 3 + 1;
+        // above state means: produce a random number in range 1 to 3
+        //'1' stands for rock; '2' stands for scissors; '3' stands for paper
+        std::cin >> player_selection;
+        // below are six conditions of player wins and computer wins
+        if (player_selection == 'R' && computer_selection == 2)
+        {
+            answer1++;
+            player_wins++;
+            std::cout << computer_selection << std::endl;
+            std::cout << "You win!"
+                      << " You use "
+                      << answer1
+                      << " round !"
+                      << std::endl;
+        }
+        else if (player_selection == 'S' && computer_selection == 3)
+        {
+            answer1++;
+            player_wins++;
+            std::cout << computer_selection << std::endl;
+            std::cout << "You win!"
+                      << " You use "
+                      << answer1
+                      << " round!"
+                      << std::endl;
+        }
+        else if (player_selection == 'P' && computer_selection == 1)
+        {
+            answer1++;
+            player_wins++;
+            std::cout << computer_selection << std::endl;
+            std::cout << "You win!"
+                      << " You use "
+                      << answer1
+                      << " round!"
+                      << std::endl;
+        }
+        else if (player_selection == 'R' && computer_selection == 3)
+        {
+            answer1++;
+            computer_wins++;
+            std::cout << computer_selection << std::endl;
+            std::cout << "You lose!"
+                      << " You use "
+                      << answer1
+                      << " round!"
+                      << std::endl;
+        }
+        else if (player_selection == 'S' && computer_selection == 1)
+        {
+            answer1++;
+            computer_wins++;
+            std::cout << computer_selection << std::endl;
+            std::cout << "You lose!"
+                      << " You use "
+                      << answer1
+                      << " round!"
+                      << std::endl;
+        }
+        else if (player_selection == 'P' && computer_selection == 2)
+        {
+            answer1++;
+            computer_wins++;
+            std::cout << computer_selection << std::endl;
+            std::cout << "You lose!"
+                      << " You use "
+                      << answer1
+                      << " round!"
+                      << std::endl;
+        }
+        else
+        {
+            answer1++;
+            std::cout << computer_selection << std::endl;
+            std::cout << computer_wins << " vs " << player_wins << std::endl;
+        }
+        if (computer_wins == 3 || player_wins == 3)
+        {
+            break;
+        }
+    }
+    std::cout << "You totally won " << player_wins << " round!" << std::endl;
+    std::cout << "Computer totally won " << computer_wins << " round!" << std::endl;
+    return 0;
+}
