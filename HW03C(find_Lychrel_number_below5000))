@@ -1,0 +1,47 @@
+//==================================================
+// PROGRAMMER: TAI TZU YU
+// DATE: 2023/10/15
+// FILE NAME: HW03BB12611017
+// DESCRIPTION: Calculation of prime numbers (Bonus points)
+//==================================================
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+bool isPrime(int); // Help us verify whether the number is a prime number
+int answer1; // First prime number (the smaller one) of the largest pair of twin prime numbers less than 1000
+int answer2; // Second prime number of the largest pair of twin prime numbers less than 1000
+
+int main()
+{
+    int input_num;
+    for (input_num = 0; input_num <= 1000; input_num++)
+    {
+        if(isPrime(input_num)){
+            answer1 = input_num;
+        }
+        if(isPrime((answer1 + 2))){
+            answer2 = answer1 + 2; // if answer1 + 2 is a prime number, then it is answer1's twin 
+        }
+    }
+    answer1 = answer2 - 2; // let answer1 smaller, because we've already get the bigger twin
+    cout << answer1 << " " << answer2;
+    return 0;
+}
+
+bool isPrime(int x){
+    int test_num;
+    double remainder;
+    for (test_num = 2; test_num <= sqrt(x); test_num++)
+    {
+        remainder = x % test_num;
+        if (remainder == 0)
+        {
+            return false;
+        }
+    }
+    if(remainder != 0){
+        return true;
+    }
+    return false;
+}
