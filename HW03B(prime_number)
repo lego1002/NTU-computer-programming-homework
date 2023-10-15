@@ -1,0 +1,32 @@
+//==================================================
+// PROGRAMMER: TAI TZU YU
+// DATE: 2023/10/12
+// FILE NAME: HW03BB12611017
+// DESCRIPTION: Calculation of prime numbers
+//==================================================
+
+#include <iostream>
+#include <cmath> // For the 'sqrt()' function
+int answer1; // Store the largest prime number less than 1000 in this global variable
+
+int main()
+{
+    int test_num, input_num;
+    double remainder;
+    for (input_num = 0; input_num <= 1000; input_num++)
+    {
+        for (test_num = 2; test_num <= sqrt(input_num); test_num++)
+        {
+            remainder = input_num % test_num;
+            if (remainder == 0)
+            {
+                break;
+            }
+        }
+        if (remainder != 0)
+        {
+            answer1 = input_num;
+        }
+    }
+    return 0;
+}
