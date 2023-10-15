@@ -3,13 +3,13 @@
 // PROGRAMMER: TAI TZU YU
 // DATE: 2023/10/12
 // FILE NAME: HW03AB12611017
-// DESCRIPTION:  Calculation of an arithmetic series
+// DESCRIPTION:  Calculation of an Fibonacci series
 //==================================================
 #include <iostream>
 #include <cmath>
 using namespace std;
 double answer1; // Store the smallest value of n that makes the error less than 1.0×10^-3
-int FSeries(int x);
+int FSeries(int x); // Caculate Fibonacci series
 int times;
 int main()
 {
