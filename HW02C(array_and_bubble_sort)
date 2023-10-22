@@ -10,7 +10,7 @@
 double score[4];
 double answer1; // Store the average score of the singer
                 // For erroneous input, set answer1 to -1.0
-int i, j, temp, times, c;
+int i, c;
 void BubbleSort(double score[4]);
 
 int main()
@@ -33,9 +33,10 @@ int main()
 
 void BubbleSort(double score[4]) // num1 means the highest score, num2 means the second high score...
 {
-    for (times = 0; times <= 3; times++) // times is a variable that counts the times of bubble sort
+    int temp = 0;
+    for (int times = 0; times <= 3; times++) // times is a variable that counts the times of bubble sort
     {
-        for (j = 0; j < 3; j++)
+        for (int j = 0; j < 3; j++)
         {
             if (score[j] > score[j + 1])
             {
