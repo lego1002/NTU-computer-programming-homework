@@ -1,0 +1,82 @@
+//==================================================
+// PROGRAMMER: TAI TZU YU
+// DATE: 2023/10/22
+// FILE NAME: HW04CB12611017
+// DESCRIPTION: Data processing and sorting
+//==================================================
+#include <iostream>
+using namespace std;
+int answer1; // Store the student number who has the highest final grade
+int answer2; // Store the student number who has the lowest final grade
+double final_grade(int);
+void BubbleSort(double FG[10][2]);
+int score[10][5] = {
+    {1, 95, 90, 93, 87},
+    {2, 100, 95, 91, 85},
+    {3, 80, 81, 78, 82},
+    {4, 70, 74, 64, 50},
+    {5, 98, 77, 95, 90},
+    {6, 55, 40, 80, 95},
+    {7, 88, 78, 95, 100},
+    {8, 66, 78, 65, 60},
+    {9, 86, 82, 55, 60},
+    {10, 40, 80, 50, 65}};
+double FG[10][2] = {
+    {1, 0},
+    {2, 0},
+    {3, 0},
+    {4, 0},
+    {5, 0},
+    {6, 0},
+    {7, 0},
+    {8, 0},
+    {9, 0},
+    {10, 0}};
+
+int main()
+{
+    for (int numbers = 0; numbers < 10; numbers++)
+    {
+        FG[numbers][1] = final_grade(numbers); // put final grades into a new array
+    }
+    BubbleSort(FG);
+    answer1 = FG[0][0]; // the highest student's final grade in FG array(decreasing order)
+    answer2 = FG[9][0]; // the lowest student's final grade in FG array(decreasing order)
+    cout << "The highest student is: " << answer1 << "\nThe lowest student is: " << answer2;
+    return 0;
+}
+
+double final_grade(int student)
+{
+    double FS = 0;                                                                                      // FS meas "final score"
+    FS = 0.2 * (score[student][1] + score[student][4]) + 0.3 * (score[student][2] + score[student][3]); // caculate the final grades
+    return FS;
+}
+
+void BubbleSort(double FG[10][2]) // FG means "final grade"
+{
+    int temp1, temp2 = 0;                   // temp1 is for the students, and temp2 is for the grades
+    for (int times = 0; times < 7; times++) // times is a variable that counts the times of bubble sort
+    {
+        for (int row = 0; row < 8; row++)
+        {
+            if (FG[row][1] < FG[row + 1][1])
+            {
+                temp1 = FG[row + 1][0];
+                temp2 = FG[row + 1][1];
+                FG[row + 1][0] = FG[row][0];
+                FG[row + 1][1] = FG[row][1];
+                FG[row][0] = temp1;
+                FG[row][1] = temp2;
+            }
+        }
+    }
+    for (int x = 0; x < 10; x++) // print the rank of each students and their final grade
+    {
+        for (int y = 0; y < 2; y++)
+        {
+            cout << FG[x][y] << " ";
+        }
+        cout << endl;
+    }
+}
