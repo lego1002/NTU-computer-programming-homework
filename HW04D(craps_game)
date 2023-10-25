@@ -1,0 +1,77 @@
+//==================================================
+// PROGRAMMER: TAI TZU YU
+// DATE: 2023/10/25
+// FILE NAME: HW04DB12611017
+// DESCRIPTION: Game of Craps simulation
+//==================================================
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+double answer1 = 0; // Store the probability of winning at game of Craps in this global variable
+double answer2 = 0; // Store the average length of a game of Craps in this global variable
+int rollDice();
+int pt[10000]; // this array save the play times of each round
+
+int main()
+{
+    int dice = 0, round = 0, playTimes = 0, playerWins = 0, playerLose = 0, point = 0;
+    srand(time(NULL)); // let the random number be different each time
+    while (round < 10000)
+    {
+        playTimes = 0; // reset play times for each game
+        playTimes++;   // game start: play times + 1
+        dice = rollDice();
+        if (dice == 7 || dice == 11)
+        {
+            playerWins++;
+        }
+        else if (dice == 2 || dice == 3 || dice == 12)
+        {
+            playerLose++;
+        }
+        else
+        {
+            point = dice; // record the point
+            cout << point << endl;
+            while (1)
+            {
+                playTimes++;           // another game start(differnt winning condition): play times + 1
+                dice = 0 + rollDice(); // roll the dice again until the result appears
+                if (dice == 7)
+                {
+                    playerLose++;
+                    break;
+                }
+                else if (dice == point)
+                {
+                    playerWins++;
+                    break;
+                }
+            }
+        }
+        pt[round] = playTimes; // save the play times that each round costs
+        round++;
+    }
+    playTimes = 0; // reset play times as it is going to represnt total play times
+    for (int x = 0; x < 10000; x++)
+    {
+        playTimes += pt[x];
+    }
+    cout << round << "  " << playTimes << "  " << playerWins << "  " << playerLose << endl;
+    answer1 = static_cast<double>(playerWins) / round; // Use this to change the variable's form for correct result
+    answer2 = static_cast<double>(playTimes) / round;
+    cout << "Your winning rate is : " << answer1 << "% !" << endl
+         << "Thee average length of this game is : " << answer2 << " !";
+    return 0;
+}
+
+int rollDice()
+{
+    int d1 = 0, d2 = 0;
+    d1 = rand() % 6 + 1;
+    d2 = rand() % 6 + 1;
+    return d1 + d2;
+}
