@@ -1,44 +1,52 @@
 //==================================================
 // PROGRAMMER: TAI TZU YU
-// DATE: 2023/10/22
+// DATE: 2023/10/22 (2023/11/1 updated)
 // FILE NAME: HW04AB12611017
 // DESCRIPTION: Matrix multiplication function
 //==================================================
 #include <iostream>
-void display_result(double C[3][5]);
-double answer1 = 0;
+using namespace std;
+
+double answer1; // Store the sum of all elements in matrix C
+
+void matrixMultiplication(double A[3][4], double B[4][5], double C[3][5]); // for matrix multiplication.
+void displayResult(double C[3][5]);                                        // to display the matrix multiplication result
 
 int main()
 {
     double A[3][4] = {{5.2, 3.2, 6.8, 8.8}, {3.0, 2.5, 7.7, 6.2}, {2.7, 7.4, 8.5, 0.5}};
     double B[4][5] = {{2.1, 1.5, 7.5, 2.6, 5.3}, {5.2, 2.5, 6.6, 9.2, 7.2}, {3.6, 8.3, 4.5, 5.4, 2.1}, {9.3, 4.4, 8.9, 3.5, 0.9}};
     double C[3][5];
+    matrixMultiplication(A, B, C);
+    cout << "Matrix C is :" << endl;
+    displayResult(C);
+    cout << answer1;
+    return 0;
+}
+
+void matrixMultiplication(double A[3][4], double B[4][5], double C[3][5])
+{
     for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 5; j++)
         {
-            for (int inner = 0; inner < 4; inner++) // Multiply the row of A by the column of B to get the row, column of product.
+            for (int inner = 0; inner < 4; inner++)
             {
                 C[i][j] += A[i][inner] * B[inner][j];
             }
         }
     }
-    display_result(C);
-    std::cout << answer1;
-    return 0;
 }
 
-void display_result(double C[3][5])
+void displayResult(double C[3][5])
 {
-    answer1 = 0;
-    int rows, columns;
-    for (rows = 0; rows < 3; rows++)
+    for (int i = 0; i < 3; i++)
     {
-        for (columns = 0; columns < 5; columns++)
+        for (int j = 0; j < 5; j++)
         {
-            std::cout << C[rows][columns] << " ";
-            answer1 += C[rows][columns];
+            cout << C[i][j] << " ";
+            answer1 += C[i][j]; // caculate answer1 while printing~
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 }
