@@ -1,32 +1,33 @@
 //==================================================
 // PROGRAMMER: TAI TZU YU
-// DATE: 2023/10/12
+// DATE: 2023/10/12 (2023/11/1 update)
 // FILE NAME: HW03BB12611017
 // DESCRIPTION: Calculation of prime numbers
 //==================================================
 
 #include <iostream>
-#include <cmath> // For the 'sqrt()' function
-int answer1; // Store the largest prime number less than 1000 in this global variable
+using namespace std;
 
-int main()
-{
-    int test_num, input_num;
-    double remainder;
-    for (input_num = 0; input_num <= 1000; input_num++)
-    {
-        for (test_num = 2; test_num <= sqrt(input_num); test_num++)
-        {
-            remainder = input_num % test_num;
-            if (remainder == 0)
-            {
-                break;
-            }
-        }
-        if (remainder != 0)
-        {
-            answer1 = input_num;
+bool isPrime(int);
+
+int main(){
+    int range;
+    cin >> range;
+    for(int i = 2; i <= range; i ++){
+        if(isPrime(i)){
+            cout << i << endl;
         }
     }
     return 0;
+}
+
+bool isPrime(int x){
+    int testNum = 2;
+    while(testNum * testNum <= x){
+        if(x % testNum == 0){
+            return false;
+        }
+        testNum ++;
+    }
+    return true;
 }
