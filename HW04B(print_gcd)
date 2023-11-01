@@ -1,0 +1,74 @@
+//==================================================
+// PROGRAMMER: TAI TZU YU
+// DATE: 2023/10/22 (2023/11/1 updated)
+// FILE NAME: HW04BB12611017
+// DESCRIPTION: Use of function and nested loops
+//==================================================
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int answer1; // Store the greatest common divisor of 4 and 16 in this global variable
+int answer2; // Store the greatest common divisor of 3 and 11 in this global variable
+int answer3; // Store the greatest common divisor of 8 and 18 in this global variable
+int integers[20][20];
+int gcd(int, int);
+void display_result(int integers[20][20]);
+
+int main()
+{
+    for (int i = 0; i <= 19; i++) // put 1~20 un the array wuth a for loop
+    {
+        for (int j = 0; j <= 20; j++)
+        {
+            integers[i][j] = i + 1;
+        }
+    }
+    for (int rows = 0; rows <= 19; rows++) // put gcd in the new array
+    {
+        for (int columns = 0; columns <= 19; columns++)
+        {
+            integers[rows][columns] = gcd(integers[rows][columns], columns + 1);
+        }
+    }
+    cout << "     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20" << endl;
+    cout << "=================================================================" << endl;
+    display_result(integers);
+    answer1 = integers[3][15];
+    answer2 = integers[2][10];
+    answer3 = integers[7][17];
+    return 0;
+}
+
+int gcd(int n1, int n2)
+{
+    int Gcd = 0;
+    if (n2 > n1) // swapping variables n1 and n2 if n2 is greater than n1.
+    {
+        int temp = n2;
+        n2 = n1;
+        n1 = temp;
+    }
+    for (int i = 1; i <= n2; ++i)
+    {
+        if (n1 % i == 0 && n2 % i == 0)
+        {
+            Gcd = i;
+        }
+    }
+    return Gcd;
+}
+
+void display_result(int integers[20][20])
+{
+    int row, col;
+    for (row = 0; row <= 19; row++)
+    {
+        std::cout << setw(2) << row + 1 << setw(2) << "|";
+        for (col = 0; col <= 19; col++)
+        {
+            std::cout << setw(2) << integers[row][col] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
