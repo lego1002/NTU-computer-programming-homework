@@ -1,0 +1,87 @@
+//==================================================
+// PROGRAMMER: TAI TZU YU
+// DATE: 2023/11/4
+// FILE NAME: HW05A(optional)B12611017
+// DESCRIPTION: Caesar Shift Cipher Decoder
+//==================================================
+#include <iostream>
+
+using namespace std;
+
+void caesarShift(char arr[100], int);
+void copyString(char original[], char target[], int length); // we can't use arr1[] = arr2[]
+char findLast(char arr[]);                                   // find the last letter of the message
+
+char answer[100];
+int answer1;  // The value of K to decode the above encrypted message.
+char answer2; // Store the first character of the decoded sentence
+char answer3; // Store the last character of the decoded sentence
+
+int main()
+{
+    char problem[] = "GWC IZM ZMITTG I PIZL EWZSQVO ABCLMVB";
+    for (int i = 1; i < 26; i++)
+    {
+        caesarShift(problem, i);
+    }
+    // after run the code once, i think the value of k is 8...
+    caesarShift(problem, 8);
+    answer1 = 8;
+    answer2 = answer[0];
+    answer3 = findLast(answer);
+    cout << "The decoded messages is : " << answer << endl;
+    cout << "The value of \"K\" is : " << answer1 << endl;
+    cout << "The first character of the decoded sentence is : " << answer2 << endl;
+    cout << "The last character of the decoded sentence is : " << answer3 << endl;
+    return 0;
+}
+
+void caesarShift(char arr[], int k)
+{
+    int K = k; // The Caesar shift key
+    char encrypted[100];
+    copyString(arr, encrypted, 100);
+    char decrypted[100];
+    for (int i = 0; encrypted[i] != '\0'; i++) //'\0' is the end of a string so i use it to check wherther input is end
+    {
+        char character = encrypted[i];
+        char decryptedChar = '\0';
+        if (character != ' ')
+        {
+            if (character - K < 65)
+            {
+                decryptedChar = character - K + 26; // i use ascii code to change the alphabet (A~Z corresponded to 65 ~ 90)
+            }
+            else
+            {
+                decryptedChar = character - K;
+            }
+            decrypted[i] = decryptedChar;
+        }
+        else
+        {
+            decrypted[i] = character; // we do not need to encrypte space
+        }
+    }
+    copyString(decrypted, answer, 100);
+}
+
+void copyString(char original[], char target[], int length)
+{
+    for (int i = 0; i < length; i++)
+    {
+        target[i] = original[i];
+    }
+}
+
+char findLast(char arr[])
+{
+    int x = 0;
+    char target = '\0';
+    while (arr[x] != '\0')
+    {
+        target = arr[x];
+        x++;
+    }
+    return target;
+}
