@@ -1,0 +1,142 @@
+#include <iostream>
+using namespace std;
+const int ROWS = 20;
+const int COLS = 20;
+
+void printGraph(bool grid[ROWS][COLS]);                          // function to print the graph
+int countLiveNeighbors(bool grid[ROWS][COLS], int row, int col); // function to caculate live cells
+void game(bool grid[ROWS][COLS]);                                // function of game of life
+int countLiveCells(bool grid[ROWS][COLS]);
+
+int answer1; // Store the total number of live cells of the first generation
+int answer2; // Store the total number of live cells of the second generation
+int answer3; // Store the total number of live cells of the Nth generation
+
+int main()
+{
+    int num;
+    bool grid[ROWS][COLS] = {false};                                                    // only have 0 and 1 to pretend cells' death or live
+    grid[3][3] = grid[3][5] = grid[4][4] = grid[5][4] = grid[6][3] = grid[6][5] = true; // set live cells for the first generation
+
+    // input area
+    cout << "Enter the number of generations (5 <= N <= 20): ";
+    cin >> num;
+    cout << "Generation 1 is :\n";
+
+    // first generation
+    cout << "\nGeneration 1 is :\n";
+    printGraph(grid);
+    answer1 = countLiveCells(grid);
+
+    // second generation
+    game(grid);
+    cout << "\nGeneration 2 is :\n";
+    printGraph(grid);
+    answer2 = countLiveCells(grid);
+
+    // the last of generations
+    for (int generation = 3; generation <= num; generation++)
+    {
+        game(grid);
+        cout << "\nGeneration " << generation << " is :\n";
+        printGraph(grid);
+    }
+    answer3 = countLiveCells(grid);
+
+    cout << "\nthe total number of live cells of the first generation is : " << answer1;
+    cout << "\nthe total number of live cells of the second generation is : " << answer2;
+    cout << "\nthe total number of live cells of the " << num << "th generation is : " << answer3;
+    return 0;
+}
+
+void printGraph(bool grid[ROWS][COLS])
+{
+    for (int i = 0; i < ROWS; i++)
+    {
+        for (int j = 0; j < COLS; j++)
+        {
+            cout << (grid[i][j] ? " A " : " . "); //"A" means live cell, "." means dead cell
+        }
+        cout << '\n';
+    }
+}
+
+int countLiveNeighbors(bool grid[ROWS][COLS], int row, int col)
+{
+    int count = 0; // count alive cell
+    for (int i = -1; i <= 1; i++)
+    {
+        for (int j = -1; j <= 1; j++)
+        {
+            if (i == 0 && j == 0)
+                continue; // skip the cell itself
+            int newRow = row + i;
+            int newCol = col + j;
+            if (newRow >= 0 && newRow < ROWS && newCol >= 0 && newCol < COLS) // to avoid the cell out of the 20*20 grid
+            {
+                if (grid[newRow][newCol])
+                {
+                    count++;
+                }
+            }
+        }
+    }
+    return count;
+}
+
+void game(bool grid[ROWS][COLS])
+{
+    bool newGrid[ROWS][COLS];
+    for (int i = 0; i < ROWS; i++)
+    {
+        for (int j = 0; j < COLS; j++)
+        {
+            int liveNeighbors = countLiveNeighbors(grid, i, j);
+            if (grid[i][j])
+            {
+                // Rule 1 and Rule 2
+                if (liveNeighbors < 2 || liveNeighbors > 3)
+                {
+                    newGrid[i][j] = false; // cell dies
+                }
+                else
+                {
+                    newGrid[i][j] = true; // cell lives
+                }
+            }
+            else
+            {
+                // Rule 4
+                if (liveNeighbors == 3)
+                {
+                    newGrid[i][j] = true; // cell recover
+                }
+                else
+                {
+                    newGrid[i][j] = false; // cell stays dead
+                }
+            }
+        }
+    }
+    // update the graph
+    for (int i = 0; i < ROWS; i++)
+    {
+        for (int j = 0; j < COLS; j++)
+        {
+            grid[i][j] = newGrid[i][j];
+        }
+    }
+}
+
+int countLiveCells(bool grid[ROWS][COLS])
+{
+    int count = 0;
+    for (int i = 0; i < ROWS; ++i)
+    {
+        for (int j = 0; j < COLS; ++j)
+        {
+            count += grid[i][j] ? 1 : 0;
+        }
+    }
+    return count;
+}
