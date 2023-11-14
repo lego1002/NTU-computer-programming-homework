@@ -1,14 +1,14 @@
 //==================================================
 // PROGRAMMER: TAI TZU YU
 // DATE: 2023/11/4
-// FILE NAME: HW05A(optional)B12611017
-// DESCRIPTION: Caesar Shift Cipher Decoder
+// FILE NAME: HW05A_optionalB12611017
+// DESCRIPTION: Caesar Shift Cipher Decoder(Optional Bonus Points)
 //==================================================
 #include <iostream>
 
 using namespace std;
 
-void caesarShift(char arr[100], int);
+void caesarShift(char arr[], int);
 void copyString(char original[], char target[], int length); // we can't use arr1[] = arr2[]
 char findLast(char arr[]);                                   // find the last letter of the message
 
@@ -19,14 +19,25 @@ char answer3; // Store the last character of the decoded sentence
 
 int main()
 {
+    int k = 0;
     char problem[] = "GWC IZM ZMITTG I PIZL EWZSQVO ABCLMVB";
-    for (int i = 1; i < 26; i++)
+    for (int K = 1; K < 26; K++)
     {
-        caesarShift(problem, i);
+        caesarShift(problem, K);
+        // if appears " A ", which means that is the answer
+        for(int i = 0; i < 37; i++){
+            if(answer[i] == ' '){
+                if(answer[i + 1] == 'A'){
+                    if(answer[i + 2] == ' '){
+                        k = K;
+                        break;
+                    }
+                }
+            }
+        }
     }
-    // after run the code once, i think the value of k is 8...
-    caesarShift(problem, 8);
-    answer1 = 8;
+    caesarShift(problem, k);
+    answer1 = k;
     answer2 = answer[0];
     answer3 = findLast(answer);
     cout << "The decoded messages is : " << answer << endl;
@@ -48,13 +59,13 @@ void caesarShift(char arr[], int k)
         char decryptedChar = '\0';
         if (character != ' ')
         {
-            if (character - K < 65)
+            if (character + K > 90)
             {
-                decryptedChar = character - K + 26; // i use ascii code to change the alphabet (A~Z corresponded to 65 ~ 90)
+                decryptedChar = K - (90 - character + 1) + 65; // i use ascii code to change the alphabet (A~Z corresponded to 65 ~ 90)
             }
             else
             {
-                decryptedChar = character - K;
+                decryptedChar = character + K;
             }
             decrypted[i] = decryptedChar;
         }
